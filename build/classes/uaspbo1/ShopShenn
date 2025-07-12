@@ -1,0 +1,49 @@
+package UASPBO1;
+
+import java.util.Scanner;
+
+public class ShopShenn {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to ShopShenn");
+
+        // Inisialisasi array produk
+        barangjual[] daftarbarang = new barangjual[3];
+        daftarbarang[0] = new jenisbarangjual("VGA01", "NVIDIA", 36000000, "RTX 4090Ti");
+        daftarbarang[1] = new jenisbarangjual("VGA02", "AMD", 7425000, "Ryzen 9900X");
+        daftarbarang[2] = new jenisbarangjual("VGA03", "ASUS", 4300000, "STRIX RX 6700");
+
+        System.out.println("\nbarang YANG TERSEDIA DI TOKO\n");
+        for (barangjual p : daftarbarang) {
+            p.tampilkaninfo();
+            System.out.println("_______");
+        }
+
+        System.out.print("\nMasukkan merk yang ingin dibeli: ");
+        String merkInput = scanner.next();
+
+        System.out.print("Masukkan uang anda: Rp");
+        double uang = scanner.nextDouble();
+
+       barangjual barangDipilih = null;
+        for (barangjual p : daftarbarang) {
+            if (p.getmerk().equalsIgnoreCase(merkInput)) {
+                barangDipilih = p;
+                break;
+            }
+        }
+
+        if (barangDipilih != null) {
+            if (uang >= barangDipilih.getharga()) {
+                System.out.println("Pembelian berhasil. Kembalian Anda: Rp" + (uang - barangDipilih.getharga()));
+            } else {
+                System.out.println("Uang Anda tidak cukup.");
+            }
+        } else {
+            System.out.println("Produk tidak ditemukan.");
+        }
+
+        scanner.close();
+    }
+}
